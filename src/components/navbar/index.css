@@ -1,0 +1,35 @@
+
+.available-sizes{
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+}
+
+.right-nav{
+    height: 8vh;
+    width: 80vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 25px;
+    padding-right: 25px;
+    box-shadow: 2px 0px 4px 0px;
+}
+
+.nav-icons{
+    width:3.5rem;
+    height: 3.5rem;
+}
+.list-style{
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+.list-item{
+    display: flex;
+}
+.active{
+    background-color: #d9ebff;
+}

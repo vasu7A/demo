@@ -1,0 +1,8 @@
+.tablet-img{
+    width: 35vw;
+    max-width: 1148px;
+    height: 85vh;
+    top: 50%;
+    left: 50%;
+    margin: auto;
+}
