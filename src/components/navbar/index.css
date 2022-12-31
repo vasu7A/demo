@@ -15,6 +15,28 @@
     padding-right: 25px;
     box-shadow: 2px 0px 4px 0px;
 }
+@media screen and (max-width: 728px) {
+    .right-nav{
+        width: 100vw;
+    }
+    .available-sizes{
+        display: none;
+    }
+    .nav-items-names{
+        display: none;
+    }    
+
+}
+.nav-mb-icons{
+    width: 20px;
+    height: 20px;
+}
+
+@media screen and (min-width: 728px) {
+    .nav-mb-icons{
+        display: none;
+    }
+}
 
 .nav-icons{
     width:3.5rem;
@@ -32,4 +54,7 @@
 }
 .active{
     background-color: #d9ebff;
+    box-shadow: 0px 0px 1px 0px;
+    margin-bottom: 2px;
 }
+

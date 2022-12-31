@@ -6,6 +6,7 @@ const Desktop = () => {
         src="https://gallery.bidsxchange.com/images/screen/new_imac.png"
         alt="desktop"
         className="desktop-img"
+        id="desktop_iframe"
       />
     </div>
   );

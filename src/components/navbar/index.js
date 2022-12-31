@@ -1,7 +1,13 @@
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
+
+import { sideBarContext } from "../../App";
+import menuImg from "../../Data/menu.png";
 import "./index.css";
 
 const NavBar = () => {
+  const value = useContext(sideBarContext);
+  const { handleSideBar } = value;
   return (
     <div className="right-page">
       <nav className="right-nav">
@@ -22,7 +28,7 @@ const NavBar = () => {
                 alt="desktop"
                 className="nav-icons"
               />
-              <h5>Desktop</h5>
+              <h5 className="nav-items-names">Desktop</h5>
             </li>
           </NavLink>
           <NavLink
@@ -36,7 +42,7 @@ const NavBar = () => {
                 alt="mobile"
                 className="nav-icons"
               />
-              <h5>Mobile</h5>
+              <h5 className="nav-items-names">Mobile</h5>
             </li>
           </NavLink>
           <NavLink
@@ -50,10 +56,16 @@ const NavBar = () => {
                 alt="tablet"
                 className="nav-icons"
               />
-              <h5>Tablet</h5>
+              <h5 className="nav-items-names">Tablet</h5>
             </li>
           </NavLink>
         </ul>
+        <img
+          src={menuImg}
+          className="nav-mb-icons"
+          alt="close-btn"
+          onClick={handleSideBar}
+        />
       </nav>
     </div>
   );
