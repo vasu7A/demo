@@ -50,6 +50,7 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    color: #ffffff;
 }
 .btn{
     background-color: transparent;
@@ -76,9 +77,13 @@
     min-width: 20vw;
     max-height: 40vh;
     overflow: auto;
+
 }
 .activeUnit{
     background-color: rgb(93, 166, 255);
+}
+.unit-list-container{
+    padding-left: 0px;
 }
 
 ::-webkit-scrollbar {
@@ -102,7 +107,7 @@
 ::-webkit-scrollbar-thumb:hover {
     background:rgb(54, 56, 58); 
 }
-@media screen and (max-width: 728px) {
+@media screen and (max-width: 768px) {
     .sidebar{
         position: absolute;
         z-index: 1000;
@@ -144,8 +149,5 @@
         padding-left: 15px;
         padding-right: 15px;
     }
-    
-}
-@media screen and (max-width: 728px) {
     
 }

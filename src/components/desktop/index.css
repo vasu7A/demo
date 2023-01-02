@@ -1,3 +1,11 @@
+@keyframes slide {
+    0%{
+        transform: translateY(-1%);
+    }
+    100%{
+        transform: translateY(0);
+    }
+}
 .desktop-img{
     width: 80%;
     max-width: 1148px;
@@ -6,3 +14,121 @@
     left: 50%;
     margin: auto;
 }
+
+
+
+.frame-wrap-desktop{
+    width: 72.5vw;
+    height: 82vh;
+    position: absolute;
+    border: 0;
+    margin-left: 0vh;
+    margin-top: -98vh;
+    transform: scale(0.8, 0.8);
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+.iframe-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+@media screen and (max-width: 1440px) {
+    .frame-wrap-desktop{
+        width: 72.5vw;
+        height: 55vh;
+        margin-left: -0vh;
+        margin-top: -65vh;
+    }
+}
+@media screen and (max-width: 1366px) {
+    .frame-wrap-desktop{
+        width: 72.5vw;
+        height: 81vh;
+        margin-left: -0vh;
+        margin-top: -98vh;
+    }
+}
+@media screen and (max-width: 1024px) {
+    .frame-wrap-desktop{
+        width: 72vw;
+        height: 52vh;
+        margin-left: -0vh;
+        margin-top: -62vh;
+    }
+}
+@media screen and (max-width: 768px) {
+    .desktop-img{
+        width: 100%;
+    }
+    .desktop-container{
+        min-height: 90vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .frame-wrap-desktop{
+        width: 111vw;
+        height: 60vh;
+        margin-left: -0vh;
+        margin-top: -100vh;
+    }
+}
+@media screen and (max-width: 672px) {
+    .frame-wrap-desktop{
+        width: 110vw;
+        height: 70vh;
+        margin-left: -0.3vh;
+        margin-top: -100vh;
+    }
+}
+@media screen and (max-width: 586px) {
+    .frame-wrap-desktop{
+        width: 109vw;
+        height: 57vh;
+        margin-left: -0.3vh;
+        margin-top: -99vh;
+    }
+}
+@media screen and (max-width: 485px) {
+    .frame-wrap-desktop{
+        width: 106.5vw;
+        height: 49vh;
+        margin-left: -0.3vh;
+        margin-top: -97.5vh;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .frame-wrap-desktop{
+        width: 106.5vw;
+        height: 42.5vh;
+        margin-left: -0.3vh;
+        margin-top: -96.5vh;
+    }
+}
+@media screen and (max-width: 375px) {
+    .frame-wrap-desktop{
+        width: 104vw;
+        height: 36vh;
+        margin-left: -0.3vh;
+        margin-top: -96.5vh;
+    }
+}
+
+
+@media screen and (max-width: 320px) {
+    .frame-wrap-desktop{
+        width: 102.5vw;
+        height: 30vh;
+        margin-left: -0vh;
+        margin-top: -95.5vh;
+    }
+}
+
+

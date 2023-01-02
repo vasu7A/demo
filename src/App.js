@@ -12,15 +12,30 @@ export const sideBarContext = React.createContext();
 
 function App() {
   const [isOpen, setIsOpen] = useState(true);
+  const [activeTab, setActiveTab] = useState("DISPLAY");
+  const [activeUnit, setActiveUnit] = useState(0);
+
+  document.title = "Streamlyn Ad Formats";
 
   const handleSideBar = () => {
     setIsOpen((isOpen) => !isOpen);
   };
 
+  const handleActiveAddUnit = (id) => {
+    setActiveUnit(id);
+  };
+
   return (
     <div className="App">
       <sideBarContext.Provider
-        value={{ isOpen: isOpen, handleSideBar: handleSideBar }}
+        value={{
+          isOpen: isOpen,
+          activeTab: activeTab,
+          activeUnit: activeUnit,
+          handleActiveAddUnit: handleActiveAddUnit,
+          handleSideBar: handleSideBar,
+          setActiveTab: setActiveTab,
+        }}
       >
         <BrowserRouter>
           <SideBar />

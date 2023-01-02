@@ -13,8 +13,8 @@ const NavBar = () => {
       <nav className="right-nav">
         <div className="available-sizes">
           <h5>Available sizes :</h5>
-          <button>300x20</button>
-          <button>300x50</button>
+          <button className="btn-sizes">300x20</button>
+          <button className="btn-sizes">300x50</button>
         </div>
         <ul className="list-style">
           <NavLink
