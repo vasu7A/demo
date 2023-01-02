@@ -18,21 +18,22 @@ const NavBar = () => {
         </div>
         <ul className="list-style">
           <NavLink
-            to="/"
-            className={({ isActive }) => (isActive ? "active" : "inactive")}
+            to="/desktop"
+            className={`${({ isActive }) =>
+              isActive ? "active" : "inactive"} nav-icon-desktop`}
             style={{ textDecoration: "none", color: "black" }}
           >
-            <li className="list-item">
+            <li className="list-item ">
               <img
                 src="https://gallery.bidsxchange.com/images/demo/desktop.png"
                 alt="desktop"
-                className="nav-icons"
+                className="nav-icons "
               />
               <h5 className="nav-items-names">Desktop</h5>
             </li>
           </NavLink>
           <NavLink
-            to="/mobile"
+            to="/"
             className={({ isActive }) => (isActive ? "active" : "inactive")}
             style={{ textDecoration: "none", color: "black" }}
           >

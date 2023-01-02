@@ -11,13 +11,20 @@
 }
 .nav-link{
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     text-decoration: none;
     color: white;
+    width: 15vw;
 }
 .unit-list:hover{
     background-color: rgb(116, 156, 204);
+    border-style: solid;
+    border-width: 10px;
+    border-color: #d1d1d1;
+    border-right: none;
+    border-top: none;
+    border-bottom: none;
 }
 @media screen and (max-width: 728px) {
     .unit-list{

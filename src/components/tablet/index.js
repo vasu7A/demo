@@ -12,7 +12,7 @@ const Tablet = () => {
         <iframe
           id="tab_frame"
           loading="lazy"
-          class="frame-wrap-tablet"
+          className="frame-wrap-tablet"
           src="https://gallery.bidsxchange.com/demo/dummy/demo-ic.html"
           name="tab_iframe"
         ></iframe>

@@ -12,7 +12,7 @@ const Mobile = () => {
         <iframe
           id="tab_frame"
           loading="lazy"
-          class="frame-wrap-mobile"
+          className="frame-wrap-mobile"
           src="https://gallery.bidsxchange.com/demo/dummy/demo-ic.html"
           name="tab_iframe"
         ></iframe>

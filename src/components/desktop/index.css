@@ -6,6 +6,7 @@
         transform: translateY(0);
     }
 }
+
 .desktop-img{
     width: 80%;
     max-width: 1148px;
@@ -15,6 +16,10 @@
     margin: auto;
 }
 
+.request-msg{
+    color: blueviolet;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
 
 
 .frame-wrap-desktop{
@@ -47,7 +52,7 @@
 }
 @media screen and (max-width: 1366px) {
     .frame-wrap-desktop{
-        width: 72.5vw;
+        width: 992px;
         height: 81vh;
         margin-left: -0vh;
         margin-top: -98vh;
@@ -71,12 +76,18 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        display: none;
     }
     .frame-wrap-desktop{
         width: 111vw;
         height: 60vh;
         margin-left: -0vh;
         margin-top: -100vh;
+    }
+}
+@media screen and (min-width: 768px){
+    .request-msg{
+        display: none;
     }
 }
 @media screen and (max-width: 672px) {

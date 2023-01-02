@@ -10,6 +10,7 @@ const displayUnitList = [
     name: "In Image",
     url: "https://gallery.bidsxchange.com/demo/in-image-mobile-320x50.html",
     image: closeImg,
+    script: "https://gallery.bidsxchange.com/demo/ad-units/in_image.js",
   },
   {
     id: uuidv4(),

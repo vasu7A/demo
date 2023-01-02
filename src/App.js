@@ -13,7 +13,7 @@ export const sideBarContext = React.createContext();
 function App() {
   const [isOpen, setIsOpen] = useState(true);
   const [activeTab, setActiveTab] = useState("DISPLAY");
-  const [activeUnit, setActiveUnit] = useState(0);
+  const [activeUnit, setActiveUnit] = useState();
 
   document.title = "Streamlyn Ad Formats";
 
@@ -43,8 +43,8 @@ function App() {
             <NavBar />
             <div className="main-content">
               <Routes>
-                <Route exact path="/" element={<Desktop />} />
-                <Route exact path="/mobile" element={<Mobile />} />
+                <Route exact path="/" element={<Mobile />} />
+                <Route exact path="/desktop" element={<Desktop />} />
                 <Route exact path="/tablet" element={<Tablet />} />
               </Routes>
             </div>

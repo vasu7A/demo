@@ -25,6 +25,7 @@
     .nav-mb-icons{
         display: none;
     }
+    
 }
 
 .nav-icons{
@@ -61,7 +62,10 @@
     }
     .nav-items-names{
         display: none;
-    }   
+    } 
+    .nav-icon-desktop{
+        display: none;
+    }  
     .active{
         margin-bottom: 0px;
     } 
