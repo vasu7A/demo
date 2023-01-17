@@ -1,117 +1,23 @@
-import { useContext } from "react";
-import { v4 as uuidv4 } from "uuid";
+import { useContext, useEffect } from "react";
 import { sideBarContext } from "../../App";
 import AddUnits from "../addunits";
 import closeImg from "../../Data/close.png";
 import "./index.css";
-const displayUnitList = [
-  {
-    id: uuidv4(),
-    name: "In Image",
-    url: "https://gallery.bidsxchange.com/demo/in-image-mobile-320x50.html",
-    image: closeImg,
-    script: "https://gallery.bidsxchange.com/demo/ad-units/in_image.js",
-  },
-  {
-    id: uuidv4(),
-    name: "Under Image",
-    url: "https://gallery.bidsxchange.com/demo/under-image-mobile-300x50.html",
-    image: closeImg,
-  },
-  {
-    id: uuidv4(),
-    name: "In Content",
-    url: "https://gallery.bidsxchange.com/demo/incontent-mobile-320x50.html",
-    image: closeImg,
-  },
-  {
-    id: uuidv4(),
-    name: "Infobot",
-    url: "https://gallery.bidsxchange.com/demo/infoBot-mobile-320x50.html",
-    image: closeImg,
-  },
-  {
-    id: uuidv4(),
-    name: "StayOn",
-    url: "https://gallery.bidsxchange.com/demo/catfish-mobile-320x50.html",
-    image: closeImg,
-  },
-  {
-    id: uuidv4(),
-    name: "Slider",
-    url: "https://gallery.bidsxchange.com/demo/slider-mobile-right.html",
-    image: closeImg,
-  },
-  {
-    id: uuidv4(),
-    name: "Hybrid Slider",
-    url: "https://gallery.bidsxchange.com/demo/hybrid-mobile-right.html",
-    image: closeImg,
-  },
-  {
-    id: uuidv4(),
-    name: "Parallax",
-    url: "https://gallery.bidsxchange.com/demo/parallax-mobile-300x600.html",
-    image: closeImg,
-  },
-  {
-    id: uuidv4(),
-    name: "Interstitial",
-    url: "https://gallery.bidsxchange.com/demo/interstitial-mobile-300x250.html",
-    image: closeImg,
-  },
-  {
-    id: uuidv4(),
-    name: "Page Push Down",
-    url: "https://gallery.bidsxchange.com/demo/page-push-down-mobile-320x50.html",
-    image: closeImg,
-  },
-  {
-    id: uuidv4(),
-    name: "Ad Push Down",
-    url: "https://gallery.bidsxchange.com/demo/ad-push-down-mobile-320x50.html",
-    image: closeImg,
-  },
-];
-const videoUnitList = [
-  {
-    id: uuidv4(),
-    name: "Contextual Video",
-    url: "https://gallery.bidsxchange.com/demo/video-floating-mobile.html",
-    image: closeImg,
-  },
-  {
-    id: uuidv4(),
-    name: "Web Stories",
-    url: "https://gallery.bidsxchange.com/demo/video-stories.html",
-    image: closeImg,
-  },
-  {
-    id: uuidv4(),
-    name: "In App Rewarded",
-    url: "https://gallery.bidsxchange.com/demo-games/index.html",
-    image: closeImg,
-  },
-];
-const audioUnitList = [
-  {
-    id: uuidv4(),
-    name: "Audio Flashes (Beta)",
-    url: "https://gallery.bidsxchange.com/demo/audio-flash-mobile.html",
-    image: closeImg,
-  },
-];
-const nativeUnitList = [
-  {
-    id: uuidv4(),
-    name: "Standard Native Unit",
-    url: "https://gallery.bidsxchange.com/demo/native-ad-mobile-320x50.html",
-    image: closeImg,
-  },
-];
+import { Link, useNavigate } from "react-router-dom";
+
 const SideBar = () => {
   const value = useContext(sideBarContext);
-  const { isOpen, activeTab, activeUnit, handleSideBar, setActiveTab } = value;
+  const {
+    isOpen,
+    activeTab,
+    activeUnit,
+    handleSideBar,
+    setActiveTab,
+    displayUnitList,
+    videoUnitList,
+    audioUnitList,
+    nativeUnitList,
+  } = value;
 
   const displayActive = activeTab === "DISPLAY" && "activeUnit";
   const videoActive = activeTab === "VIDEO" && "activeUnit";
@@ -119,6 +25,14 @@ const SideBar = () => {
   const nativeActive = activeTab === "NATIVE" && "activeUnit";
 
   const condition = isOpen ? "open" : "close";
+  const path = useNavigate();
+
+  useEffect(() => {
+    if (window.screen.width <= 768) {
+      path("/mobile");
+      console.log(path);
+    }
+  }, []);
 
   const renderDisplayUnits = () => {
     return (
@@ -177,11 +91,13 @@ const SideBar = () => {
   return (
     <aside className={`sidebar ${condition}`}>
       <div className="navlogo">
-        <img
-          src="https://gallery.bidsxchange.com/images/logo-hd.png"
-          alt="logo"
-          className="logo"
-        />
+        <Link to="/">
+          <img
+            src="https://gallery.bidsxchange.com/images/logo-hd.png"
+            alt="logo"
+            className="logo"
+          />
+        </Link>
         <img
           src={closeImg}
           className="nav-mb-icons"
@@ -203,7 +119,7 @@ const SideBar = () => {
                 className="display-icon"
               />
             </button>
-            <h6>Display</h6>
+            <h6 className="add-channel-name">Display</h6>
           </div>
           <div
             className={`square1 ${videoActive}`}
@@ -216,7 +132,7 @@ const SideBar = () => {
                 className="display-icon"
               />
             </button>
-            <h6>Video</h6>
+            <h6 className="add-channel-name">Video</h6>
           </div>
           <div
             className={`square1 ${audioActive}`}
@@ -229,7 +145,7 @@ const SideBar = () => {
                 className="display-icon"
               />
             </button>
-            <h6>Audio</h6>
+            <h6 className="add-channel-name">Audio</h6>
           </div>
           <div
             className={`square1 ${nativeActive}`}
@@ -242,7 +158,7 @@ const SideBar = () => {
                 className="display-icon"
               />
             </button>
-            <h6>Native</h6>
+            <h6 className="add-channel-name">Native</h6>
           </div>
         </div>
         <h6 className="sub-heading"> SELECT AD UNIT DSK </h6>

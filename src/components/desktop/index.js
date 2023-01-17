@@ -12,11 +12,11 @@ const Desktop = () => {
         />
         <div className="iframe-container">
           <iframe
-            id="tab_frame"
+            id="desktop_frame"
             loading="lazy"
             className="frame-wrap-desktop"
-            src="https://gallery.bidsxchange.com/demo/dummy/demo-ic.html"
-            name="tab_iframe"
+            src="https://gallery.bidsxchange.com/demo/demo.html"
+            name="desktop_iframe"
           ></iframe>
         </div>
       </div>

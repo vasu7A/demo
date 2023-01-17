@@ -1,6 +1,8 @@
-*{
+* {
   box-sizing: border-box;
+
 }
+
 .App {
   text-align: center;
   display: flex;
@@ -36,10 +38,21 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
-.main-content{
-  padding: 20px;
+
+.main-content {
+  position: relative;
+  width: 100%;
+  min-height: 1px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+
 }

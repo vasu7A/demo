@@ -1,21 +1,23 @@
-.navlogo{
+.navlogo {
     height: 8vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.logo{
+
+.logo {
     height: 40px;
     width: 150px;
 }
-.sidebar{
+
+.sidebar {
     width: 20vw;
     height: 100vh;
-   
+
 }
 
 
-.main{
+.main {
     background-color: #5a6169;
     min-height: 92vh;
     min-width: 20vw;
@@ -24,7 +26,8 @@
     justify-content: flex-start;
     align-items: center;
 }
-.square1-container{
+
+.square1-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -32,18 +35,22 @@
     border: 1px solid white;
     border-left: 0px;
     border-right: 0px;
+    min-width: 20vw;
+    min-height: 35vh;
 }
-.display-icon{
+
+.display-icon {
     height: 50px;
     width: 50px;
-    background-color:transparent;
+    background-color: transparent;
 }
-.square1{
+
+.square1 {
     position: relative;
     flex-basis: calc(50% - 10px);
     margin: 5px;
     min-width: 0;
-    height: 125px;
+    height: 18vh;
     border: 1px solid white;
     display: flex;
     flex-direction: column;
@@ -52,12 +59,14 @@
     cursor: pointer;
     color: #ffffff;
 }
-.btn{
+
+.btn {
     background-color: transparent;
     border: none;
     margin-top: 10px;
 }
-.sub-heading{
+
+.sub-heading {
     color: #ffffff;
     text-align: center;
     font-weight: 900;
@@ -66,7 +75,8 @@
     padding-top: 7px;
     padding-bottom: 7px;
 }
-.square2-container{
+
+.square2-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -79,54 +89,60 @@
     overflow: auto;
 
 }
-.activeUnit{
+
+.activeUnit {
     background-color: rgb(93, 166, 255);
 }
-.unit-list-container{
+
+.unit-list-container {
     padding-left: 0px;
 }
 
-::-webkit-scrollbar {
+.square2-container::-webkit-scrollbar {
     width: 7px;
 
 }
-    
-::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px grey; 
+
+.square2-container::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
     border-radius: 5px;
 }
-    
-::-webkit-scrollbar-thumb {
-    background:rgb(255, 255, 255); 
+
+.square2-container::-webkit-scrollbar-thumb {
+    background: rgb(255, 255, 255);
     border-radius: 10px;
     border-color: black;
     border: 0.5px;
     border-style: solid;
 }
-    
-::-webkit-scrollbar-thumb:hover {
-    background:rgb(54, 56, 58); 
+
+.square2-container::-webkit-scrollbar-thumb:hover {
+    background: rgb(54, 56, 58);
 }
-@media screen and (max-width: 768px) {
-    .sidebar{
+
+@media screen and (max-width: 769px) {
+    .sidebar {
         position: absolute;
         z-index: 1000;
         background-color: #ffffff;
         width: 100vw;
     }
-    .close{
+
+    .close {
         box-shadow: none;
         transform: translateX(-100%);
         visibility: hidden;
-        transition: transform .5s ease,visibility 500ms;
+        transition: transform .5s ease, visibility 500ms;
     }
-    .open{
+
+    .open {
         transform: translateX(0%);
         transition: transform .5s ease;
         visibility: visible;
     }
-    .e-sidebar{
-        -webkit-tap-highlight-color: rgba(0,0,0,0);
+
+    .e-sidebar {
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         background: #f8f9fa;
         height: 100%;
         overflow: auto;
@@ -137,17 +153,24 @@
         visibility: hidden;
         will-change: transform;
     }
-    .square1-container{
+
+    .square1-container {
         min-width: 100vw;
-    
+
     }
-    .square2-container{
+
+    .square2-container {
         width: 100vw;
     }
-    .navlogo{
+
+    .navlogo {
         justify-content: space-between;
         padding-left: 15px;
         padding-right: 15px;
     }
-    
+
+}
+
+.add-channel-name {
+    margin-top: 0px;
 }

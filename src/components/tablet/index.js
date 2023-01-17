@@ -14,7 +14,7 @@ const Tablet = () => {
           loading="lazy"
           className="frame-wrap-tablet"
           src="https://gallery.bidsxchange.com/demo/dummy/demo-ic.html"
-          name="tab_iframe"
+          name="tablet_iframe"
         ></iframe>
       </div>
     </div>

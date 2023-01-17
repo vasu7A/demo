@@ -10,11 +10,11 @@ const Mobile = () => {
       />
       <div className="iframe-container">
         <iframe
-          id="tab_frame"
+          id="mobile_frame"
           loading="lazy"
           className="frame-wrap-mobile"
           src="https://gallery.bidsxchange.com/demo/dummy/demo-ic.html"
-          name="tab_iframe"
+          name="mobile_iframe"
         ></iframe>
       </div>
     </div>

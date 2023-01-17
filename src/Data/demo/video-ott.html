@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Streamlyn  OTT Demo</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+   
+    <!-- THEME CSS
+	================================================== -->
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css">
+    <!-- Slick Carousel -->
+    <link rel="stylesheet" href="plugins/slick-carousel/slick.css">
+    <link rel="stylesheet" href="plugins/slick-carousel/slick-theme.css">
+    <!-- manin stylesheet -->
+    <link rel="stylesheet" href="css/b-w.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+	<style>
+	body{
+		overflow-y: scroll; 
+		-ms-overflow-style: none;	
+		}
+	body::-webkit-scrollbar {
+		display: none;
+	}
+	
+	@media (min-width: 1200px){
+	.container {
+		max-width: 1410px;
+	}
+	}
+	@media (min-width: 992px){
+	.container {
+    max-width: 1390px;
+	}	
+	}
+	
+	
+	.story {
+	background:white;
+	padding:10px 5px;
+}
+.story .story-item {
+	height: 400px;
+    border-radius: 15px;
+    background: #3e7fff;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    color: white;
+	position:relative;
+	font-size:13px;	
+}  
+.story .story-item:before {
+   content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: black;
+    opacity: .2;
+    border-radius: 15px;
+  } 
+.story .story-item span {
+	position:absolute;bottom:0;
+	padding:10px 5px; 
+  font-family: sans-serif;
+}
+.story .owl-stage {
+    right: 15px;
+}
+
+.rounded {
+  background-image:url(https://any.ge/assets/images/favicon-32x32.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  width:32px;
+  height:32px;
+  margin:5px;
+  position:absolute;
+  border-radius:50%;
+ border:2px solid #3877e1;
+}
+	</style>
+	
+	
+
+</head>
+<body>
+<video id="video-ott-desktop" async autoplay muted loop src="https://cdn.bidsxchange.com/internal/ott.mp4" style="width: 101%;"></video>
+
+
+
+<!-- initialize jQuery Library -->
+<script src="plugins/jquery/jquery.js"></script>
+<!-- Bootstrap jQuery -->
+<script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+<!-- Slick Slider -->
+<script src="plugins/slick-carousel/slick.min.js"></script>
+<!-- Google Map -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<!-- main js -->
+<script src="js/custom.js"></script>
+<script>
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,1361 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Streamlyn Audio Demo</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+   
+    <!-- THEME CSS
+	================================================== -->
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css">
+    <!-- Slick Carousel -->
+    <link rel="stylesheet" href="plugins/slick-carousel/slick.css">
+    <link rel="stylesheet" href="plugins/slick-carousel/slick-theme.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <!-- manin stylesheet -->
+    <link rel="stylesheet" href="css/b-w.css">
+	<style>
+	body{
+		overflow-y: scroll; 
+		-ms-overflow-style: none;	
+		}
+	body::-webkit-scrollbar {
+		display: none;
+	}
+	
+	@media (min-width: 1200px){
+	.container {
+		max-width: 1410px;
+	}
+	}
+	@media (min-width: 992px){
+	.container {
+    max-width: 1390px;
+	}	
+	}
+
+
+*:focus
+{
+    outline: none;
+}
+
+
+#app-cover
+{
+    position: relative;
+    top: 51%;
+    right: 0;
+    left: 0;
+    width: 881px;
+    height: 100px;
+    /* margin: 21px auto; */
+    margin-top: 5%;
+}
+
+
+
+#player
+{
+    position: relative;
+    height: 100%;
+    z-index: 3;
+}
+
+#player-track
+{
+    position: absolute;
+    top: 0;
+    right: 15px;
+    left: 15px;
+    padding: 13px 22px 10px 184px;
+    background-color: #fff7f7;
+    border-radius: 15px 15px 0 0;
+    transition: 0.3s ease top;
+    z-index: 1;
+}
+
+#player-track.active
+{
+    top: -119px;
+}
+
+#album-name
+{
+    color: #54576f;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+#track-name
+{
+    color: #acaebd;
+    font-size: 13px;
+    margin: 2px 0 13px 0;
+}
+
+#track-time
+{
+  /*  height: 12px;
+    margin-bottom: 3px;
+    overflow: hidden;*/
+}
+
+#current-time
+{
+    float: left;
+}
+
+#track-length
+{
+    float: right;
+}
+
+#current-time, #track-length
+{
+    color: transparent;
+    font-size: 11px;
+    background-color: #ffe8ee;
+    border-radius: 10px;
+    transition: 0.3s ease all;
+}
+
+#track-time.active #current-time, #track-time.active #track-length
+{
+    color: #f86d92;
+    background-color: transparent;
+}
+
+#s-area, #seek-bar
+{
+    position: relative;
+    height: 4px;
+    border-radius: 4px;
+}
+
+#s-area
+{
+    background-color:#ffe8ee;
+    cursor: pointer;
+}
+
+#ins-time
+{
+    position: absolute;
+    top: -29px;
+    color: #fff;
+    font-size: 12px;
+    white-space: pre;
+    padding: 5px 6px;
+    border-radius: 4px;
+	display:none;
+}
+
+#s-hover
+{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0.2;
+    z-index: 2;
+}
+
+#ins-time, #s-hover
+{
+    background-color: #3b3d50;
+}
+
+#seek-bar
+{
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    background-color: #fd6d94;
+    transition: 0.2s ease width;
+    z-index: 1;
+}
+
+#player-content
+{
+    position: relative;
+    height: 100%;
+    background-color: #fff;
+    box-shadow:0 7px 25px #656565;
+    border-radius: 15px;
+    z-index: 2;
+}
+
+#album-art
+{
+    position: absolute;
+    top: -40px;
+    width: 115px;
+    height: 115px;
+    margin-left: 40px;
+    transform: rotateZ(0);
+    transition: 0.3s ease all;
+    box-shadow: 0 0 0 10px #fff;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+#album-art.active
+{
+    top: -60px;
+    box-shadow: 0 0 0 4px #fff7f7, 0 30px 50px -15px #afb7c1;
+}
+
+#album-art:before
+{
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    margin: -10px auto 0 auto;
+    background-color: #d6dee7;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 2px #fff;
+    z-index: 2;
+}
+
+#album-art img
+{
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: -1;
+}
+
+#album-art img.active
+{
+    opacity: 1;
+    z-index: 1;
+}
+
+#album-art.active img.active
+{
+    z-index: 1;
+    animation: rotateAlbumArt 3s linear 0s infinite forwards;
+}
+
+@keyframes rotateAlbumArt
+{
+    0%{ transform: rotateZ(0); }
+    100%{ transform: rotateZ(360deg); }
+}
+
+#buffer-box
+{
+    position: absolute;
+    top: 50%;
+    right: 0;
+    left: 0;
+    height: 13px;
+    color: #1f1f1f;
+    font-size: 13px;
+    font-family: Helvetica;
+    text-align: center;
+    font-weight: bold;
+    line-height: 1;
+    padding: 6px;
+    margin: -12px auto 0 auto;
+    background-color: rgba(255, 255, 255, 0.19);
+    opacity: 0;
+    z-index: 2;
+}
+
+#album-art img, #buffer-box
+{
+    transition: 0.1s linear all;
+}
+
+#album-art.buffering img
+{
+    opacity: 0.25;
+}
+
+#album-art.buffering img.active
+{
+    opacity: 0.8;
+    filter: blur(2px);
+    -webkit-filter: blur(2px);
+}
+
+#album-art.buffering #buffer-box
+{
+    opacity: 1;
+}
+
+#player-controls
+{
+    width: 220px;
+    height: 100%;
+    margin: 0 5px 0 141px;
+    float: right;
+    overflow: hidden;
+}
+
+.control
+{
+    width: 33.333%;
+    float: left;
+    padding: 12px 0;
+}
+
+.button
+{
+    width: 68px;
+    height: 54px;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 17px;
+    cursor: pointer;
+}
+
+.button i
+{
+    display: block;
+    color: #d6dee7;
+    font-size: 26px;
+    text-align: center;
+    line-height: 1;
+}
+
+.button, .button i
+{
+    transition: 0.2s ease all;
+}
+
+.button:hover
+{
+    background-color: #d6d6de;
+}
+
+.button:hover i
+{
+    color: #fff;
+}
+
+#ytd-url {
+  display: block;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  padding: 10px 14px;
+  margin: 20px;
+  color: #fff;
+  font-size: 14px;
+  text-decoration: none;
+  background-color: #ae5f87;
+  border-radius: 4px;
+  box-shadow: 0 10px 20px -5px rgba(174, 95, 135, 0.86);
+  z-index: 125;
+}
+
+
+
+
+    .player {
+      height: 95vh;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .details {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+      margin-top: -13px;
+		margin-left: -25px;
+    }
+
+    .track-art {
+      margin: 21px;
+      height: 65px;
+      width: 65px;
+      background-image: url("https://images.pexels.com/photos/262034/pexels-photo-262034.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260");
+      background-size: cover;
+      border-radius: 70%;
+    }
+
+    .now-playing {
+      font-size: 1rem;
+    }
+
+    .track-name {
+      font-size: 3rem;
+    }
+
+    .track-artist {
+      font-size: 1.5rem;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+	      margin-top: 0px;
+    }
+
+    .playpause-track,
+    .prev-track,
+    .next-track {
+      padding: 10px;
+      opacity: 1;
+
+      /* Smoothly transition the opacity */
+      transition: opacity .2s;
+    }
+
+    .playpause-track:hover,
+    .prev-track:hover,
+    .next-track:hover {
+      opacity: 1.0;
+    }
+
+    .slider_container {
+      width: 100%;
+      max-width: 650px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+			  margin-top: 12px;
+    }
+
+    /* Modify the appearance of the slider */
+    .seek_slider,
+    .volume_slider {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      height: 5px;
+      background: #cbcbcb;
+      opacity: 0.7;
+      -webkit-transition: .2s;
+      transition: opacity .2s;
+    }
+
+    /* Modify the appearance of the slider thumb */
+    .seek_slider::-webkit-slider-thumb,
+    .volume_slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      width: 15px;
+      height: 15px;
+      background: white;
+      cursor: pointer;
+      border-radius: 50%;
+    }
+
+    .seek_slider:hover,
+    .volume_slider:hover {
+      opacity: 1.0;
+    }
+
+    .seek_slider {
+      width: 60%;
+    }
+
+    .volume_slider {
+      width: 30%;
+    }
+
+    .current-time,
+    .total-duration {
+      padding: 10px;
+    }
+
+    i.fa-volume-down,
+    i.fa-volume-up {
+      padding: 10px;
+    }
+
+    i.fa-play-circle,
+    i.fa-pause-circle,
+    i.fa-step-forward,
+    i.fa-step-backward {
+      cursor: pointer;
+    }
+
+
+.track-ani {
+    
+    -webkit-animation:spin 4s linear infinite;
+    -moz-animation:spin 4s linear infinite;
+    animation:spin 4s linear infinite;
+}
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+
+	</style>
+	
+	
+
+</head>
+<body>
+
+<div class="trending-bar-dark hidden-xs">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+               
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main-navbar clearfix bg-dark ">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+               <nav class="navbar navbar-expand-lg site-main-nav navigation">
+                      <a class="navbar-brand d-lg-none" >
+                        <img src="" alt="">
+                     </a>
+  
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="fa fa-bars"></span>
+                  </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                           
+                            <li class="nav-item dropdown">
+                                <a class="nav-link"  role="button" >
+                                 Home
+                                </a>
+                            </li>
+                           
+                             <li class="nav-item dropdown">
+                                <a class="nav-link "  role="button">
+                                  Car Care
+                                </a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link"  role="button">
+                                  Accessories
+                                </a>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link"  role="button" >
+                                  Travel Type
+                                </a>
+                            </li>
+                             <li class="nav-item dropdown">
+                                <a class="nav-link "  role="button">
+                                  How to buy cars
+                                </a>
+                                
+                            </li>
+
+                             <li class="nav-item">
+                                <a class="nav-link" >Drift</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+    <form class="site-search" method="get">
+        <input type="text" id="searchInput" name="site_search" placeholder="Enter Keyword Here..." autofocus="">
+        <div class="search-close">
+            <span class="close-search">
+                <i class="fa fa-times"></i>
+            </span>
+        </div>
+    </form>
+</div>
+
+<section class="single-block-wrapper section-padding">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+				<div class="single-post">
+    <div class="post-header mb-5">
+        <a class="post-category" style="color:white">Car Care</a>
+        <h2 class="post-title">
+           When is the Right Time to Change the Tires of your Car?
+        </h2>
+        
+    </div>
+    <div class="post-body">
+        <div class="entry-content">
+					
+        <div class="post-featured-image">
+            <img style='width: 878px;height: auto;' src="images/car1.jpg" class="img-fluid" alt="featured-image">
+        </div>
+		
+			 
+			 
+	<div class="row row-cols-1 row-cols-md-3 mb-3 text-center" style="
+background: linear-gradient(to right, #e1d7d7, #5f7284); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+border-top-left-radius: 170px;border-top-right-radius: 25px;border-bottom-right-radius: 25px;border-bottom-left-radius: 170px;    height: 80px;width: 498px;margin-left: 1px;">
+
+      <div class="col" style="max-width: fit-content;">
+        
+         
+           <div class="details">
+		   <div class="track-art"></div>
+      <div class="now-playing" style="display:none">PLAYING x OF y</div>
+      <div class="track-name" style="display:none">Track Name</div>
+      <div class="track-artist" style="display:none">Track Artist</div>
+    </div>
+        
+       
+      </div>
+	  <div class="col" style="max-width: fit-content;    margin-left: -40px;">
+	   <div class="buttons" style="color: #fff;font-size:8px;margin-top: 9px;">
+      <div class="prev-track" onclick="prevTrack()"><i class="fa fa-step-backward fa-2x"></i></div>
+      <div class="playpause-track" onclick="playpauseTrack()"><i class="fa fa-play-circle fa-5x"></i></div>
+      <div class="next-track" onclick="nextTrack()"><i class="fa fa-step-forward fa-2x"></i></div>
+    </div>
+	  </div>
+	  <div class="col" style="margin-left:-30px;">
+	   
+	   <div class="slider_container" style="color: #fff;">
+      <div class="current-time">00:00</div>
+      <input type="range" min="1" max="100" value="0" class="seek_slider" onchange="seekTo()">
+      <div class="total-duration">00:00</div>
+   <br>
+      <i class="fa fa-volume-down"></i>
+      <input type="range" min="1" max="100" value="99" class="volume_slider" onchange="setVolume()">
+      <i class="fa fa-volume-up"></i>
+    </div>
+	
+	
+	<span style="color:#fff;float: right;font-size: 15px;margin-top:-5px;    margin-right: -5px;"> Listen To Summarized Article<!--<img style="width: 10%;" src="https://demo.bidsxchange.com/v2/log.png">--></span>
+		  </div>
+	  
+	  
+    </div>
+   
+	
+    <!--<div id="app-cover">
+           <div id="player">
+            <div id="player-track">
+                <div id="album-name"></div>
+                <div id="track-name"></div>
+                <div id="track-time">
+                    <div id="current-time"></div>
+                    <div id="track-length"></div>
+                </div>
+                <div id="s-area">
+                    <div id="ins-time"></div>
+                    <div id="s-hover"></div>
+                    <div id="seek-bar"></div>
+                </div>
+            </div>
+            <div id="player-content">
+                <div id="album-art">
+                    <img src="https://raw.githubusercontent.com/himalayasingh/music-player-1/master/img/_1.jpg" class="active" id="_1">
+                    <img src="https://raw.githubusercontent.com/himalayasingh/music-player-1/master/img/_2.jpg" id="_2">
+                    <img src="https://raw.githubusercontent.com/himalayasingh/music-player-1/master/img/_3.jpg" id="_3">
+                    <img src="https://raw.githubusercontent.com/himalayasingh/music-player-1/master/img/_4.jpg" id="_4">
+                    <img src="https://raw.githubusercontent.com/himalayasingh/music-player-1/master/img/_5.jpg" id="_5">
+                    <div id="buffer-box">Buffering ...</div>
+                </div>
+		<div id="album-name" style="margin-left: 145px;padding: 32px;position: absolute;"> Must Visit Places Around The World In Your Lifetime.</div>
+				
+                <div id="player-controls">
+                    <div class="control">
+                        <div class="button" id="play-previous">
+                            <i class="fas fa-backward"></i>
+                        </div>
+                    </div>
+                    <div class="control">
+                        <div class="button" id="play-pause-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="control">
+                        <div class="button" id="play-next">
+                            <i class="fas fa-forward"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>-->
+
+
+
+
+            <p style="    margin-top: 27px;">
+               Tires of the car are one of the most significant components of a car. Sadly, they are the most neglected ones, also.  Every car owner should make it a point to make sure that the car’s footwear is in optimum condition as it directly affects the vehicle’s performance, brakes, and fuel efficiency. Have you ever wondered what is the right time to change the tires of your car? There is no exact way to predict how long can car tires last as there are several factors that contribute to their damage.
+            </p>
+			          
+		  <h2>Factors that affect the life of car tires are:</h2>
+            <p>
+                Age- It is a myth that the age of car tires depends mainly on the mileage it clocks. This cannot be further from reality. Like most of the car parts, tires also have an expiry date and utilizing them beyond their lifecycle can be a dangerous proposition. Rubber gets harder with age, which could, in turn, cause minor racks in the tire wall. This is risky as what might appear to be a usable tire to an untrained eye could result in a puncture or a burst at high speed. Generally, a tire should not be used for more than 5 years.
+            </p>
+			<div class="post-featured-image">
+           <img style='width:auto;' src="images/car2.jpg" alt="post-ads" class="img-fluid mr-4">
+        </div>
+			
+            <div class="media mb-4 single-media">
+               
+               <div class="media-body">
+                    <p>Condition of the road- The condition of the roads that are experienced by a tire plays an important role in deciding their life. Car tires that have been used mostly on well-paved roads last longer than those that run on rough surfaces. This is because of the increased friction between the rough road surface and the rubber. Even those tires that are used on the cemented highways frequently, tend to have a short life because of too much wear and tear.
+                    </p>
+                </div>
+            </div>
+            <p>
+               Extreme temperatures- Generally, tires last longer in places where the temperature remains to be moderate all throughout the year. This is because extreme temperatures cause a bad affect on the rubber, therefore affecting the lifespan of car tires. It has been found that for an increase of 10 degrees Fahrenheit in temperature, the tire pressure increases by one pound per square inch. Therefore, too much high temperature will overinflate the car tires automatically, which could result in higher wear and tear if the user ignores the damage.
+            </p>
+			<div class="post-featured-image">
+				<img src="images/car3.jpg" class="img-fluid" alt="featured-image">
+			</div>
+            <p>
+               Driving habits- Life of the car tires also majorly depends on driving habits and other user behaviours. Rash driving can cause faster damage to car components. In addition, many car owners fail to maintain the right tire pressure and even ignore the rotation levels of the tire, which results in a faster deterioration of these significant car parts.
+
+            </p>
+			<h2>Signs that you should change your car tires</h2>
+<p>
+There are a lot of clear indications that it’s time to change your car tires. However, most of the car owners remain unaware of these signs and continue using the same tires lifelong. Here are some of the important factors based on which one should decide if he or she should change the tires.</p>
+
+<p>Worn Out Tread- The tread on car tires is one of the significant factors to determine their condition. Except for some of the cars that are used for circuit racing, all vehicles come with tires that have tread pattern. This trad plays an important role in explaining the ride and handling characteristics of a vehicle.  It is not only responsible for a good grip in corners, but also for improved traction under the hand brakes.</p>
+
+<p>Rough wear pattern- The tread pattern of tires often experiences uneven wear that owes to regular hard acceleration and brakes. This is due to the high friction experienced by contact patch in such situations. It is easy to spot irregular wear of the tread pattern, which is generally observed on the front tires as most of the cars in India will have an FWD layout.</p>
+        </div>
+		
+        
+        <div class="share-block  d-flex justify-content-between align-items-center border-top border-bottom mt-5">
+            <div class="post-tags">
+                <span>Home</span>
+                <a > Accessories</a>
+                <a >Car Care</a>
+                <a >How to Drive</a>
+            </div>
+
+          
+        </div>
+    </div>
+</div>
+				
+<nav class="post-navigation clearfix">
+    <div class="previous-post">
+        <a>
+            <h6 class="text-uppercase">Next</h6>
+            <h3>
+                 Auto Repair Tips: 5 Signs Your Suspension Needs Repair
+            </h3>
+        </a>
+    </div>
+    <div class="next-post">
+        <a>
+            <h6 class="text-uppercase">Previous</h6>
+
+            <h3>
+               Top 10 SUV Cars in South Asia
+            </h3>
+        </a>
+    </div>
+</nav>
+	
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+				<div class="sidebar sidebar-right">
+					<div class="widget" style="margin-bottom: 2px;">
+    <h3 class="news-title">
+        <span>Popular Posts</span>
+    </h3>
+	<div class="post-list-block">
+        <div class="post-block-wrapper post-float ">
+            <div class="post-thumbnail">
+                <a>
+                    <img class="img-fluid" src="images/car4.jpg" alt="post-thumbnail"/>
+                </a>
+            </div>
+            <div class="post-content">
+                <h2 class="post-title title-sm">
+                    <a>Auto Repair Tips: 5 Signs Your Suspension Needs Repair</a>
+                </h2>
+                <div class="post-meta">
+                    <span class="posted-time"><i class="fa fa-clock-o mr-1"></i>2 hours ago</span>
+                </div>
+            </div>
+        </div>
+      
+        <div class="post-block-wrapper post-float">
+            <div class="post-thumbnail">
+                <a>
+                    <img class="img-fluid" src="images/car5.jpg" alt="post-thumbnail"/>
+                </a>
+            </div>
+
+            <div class="post-content">
+                <h5 class="post-title title-sm">
+                    <a>Top 10 SUV Cars in South Asia</a>
+                </h5>
+                <div class="post-meta">
+                    <span class="posted-time"><i class="fa fa-clock-o mr-1"></i> 5 hours ago</span>
+                </div>
+            </div>
+        </div>
+        <div class="post-block-wrapper post-float">
+            <div class="post-thumbnail">
+                <a>
+                    <img class="img-fluid" src="images/car3.jpg" alt="post-thumbnail"/>
+                </a>
+            </div>
+
+            <div class="post-content">
+                <h5 class="post-title title-sm">
+                    <a>Top 10 Tips For Buying a New Car</a>
+                </h5>
+              <div class="post-meta">
+                    <span class="posted-time"><i class="fa fa-clock-o mr-1"></i> 5 hours ago</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="widget">
+    <h3 class="news-title">
+        <span>Hot News</span>
+    </h3>
+
+    <div class="post-overlay-wrapper" style="padding-top: 21px;">
+        <div class="post-thumbnail">
+            <img class="img-fluid" src="images/car1.jpg" alt="post-thumbnail"/>
+        </div>
+        <div class="post-content">
+            <a class="post-category white" href="post-category-1.html">Fashion</a>
+            <h2 class="post-title">
+                <a>10 weird but useful car cleaning hacks that will shock you</a>
+            </h2>
+            <div class="post-meta white">
+                <span class="posted-time"><i class="fa fa-clock-o mr-1"></i>17 jan,2020</span>
+                <span> by </span>
+                <span class="post-author">
+                    <a>Jammy Anderson</a>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="post-list-block">
+        <div class="post-block-wrapper post-float ">
+            <div class="post-thumbnail">
+                <a>
+                    <img class="img-fluid" src="images/car4.jpg" alt="post-thumbnail"/>
+                </a>
+            </div>
+            <div class="post-content">
+                <h2 class="post-title title-sm">
+                    <a>Best Cars to Drive on the Himalayas</a>
+                </h2>
+                <div class="post-meta">
+                    <span class="posted-time"><i class="fa fa-clock-o mr-1"></i>2 hours ago</span>
+                </div>
+            </div>
+        </div>
+        <div class="post-block-wrapper post-float">
+            <div class="post-thumbnail">
+                <a>
+                    <img class="img-fluid" src="images/car5.jpg" alt="post-thumbnail"/>
+                </a>
+            </div>
+            <div class="post-content">
+                <h2 class="post-title title-sm">
+                    <a>
+Car Maintenance Tips That Guarantees Long Life of your Car</a>
+                </h2>
+                <div class="post-meta">
+                    <span class="posted-time"><i class="fa fa-clock-o mr-1"></i> 15 February , 2020</span>
+                </div>
+            </div>
+        </div>
+        <div class="post-block-wrapper post-float">
+            <div class="post-thumbnail">
+                <a>
+                    <img class="img-fluid" src="images/car3.jpg" alt="post-thumbnail"/>
+                </a>
+            </div>
+
+            <div class="post-content">
+                <h2 class="post-title title-sm">
+                    <a>How to Increase the Speed of your Car</a>
+                </h2>
+                <div class="post-meta">
+                    <span class="posted-time"><i class="fa fa-clock-o mr-1"></i> 5 hours ago</span>
+                </div>
+            </div>
+        </div>
+        <div class="post-block-wrapper post-float">
+            <div class="post-thumbnail">
+                <a>
+                    <img class="img-fluid" src="images/car2.jpg" alt="post-thumbnail"/>
+                </a>
+            </div>
+
+            <div class="post-content">
+                <h2 class="post-title title-sm">
+                    <a>Car Maintenance Checklist to Keep Your Car Running</a>
+                </h2>
+                <div class="post-meta">
+                    <span class="posted-time"><i class="fa fa-clock-o mr-1"></i> 17 February, 2020</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<footer class="footer footer-main ">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-sm-12 col-lg-6 text-center">
+      
+                <div class="copyright-text text-center">
+                    <p class="mb-0">© All Copyright Reserved to - <a>Streamlyn</a></p>
+                </div>
+            </div>
+
+            <div class="scroll-to-top">
+                <button class="btn btn-primary" title="Back to Top">
+                    <i class="fa fa-angle-up"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<!-- THEME JAVASCRIPT FILES
+================================================== -->
+<!-- initialize jQuery Library -->
+<script src="plugins/jquery/jquery.js"></script>
+<!-- Bootstrap jQuery -->
+<script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+<!-- Slick Slider -->
+<script src="plugins/slick-carousel/slick.min.js"></script>
+<!-- Google Map -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
+<script src="plugins/google-map/gmap.js"></script>
+<!-- main js -->
+<script src="js/custom.js"></script>
+<!--<script>
+$(function()
+{
+    var playerTrack = $("#player-track"), bgArtwork = $('#bg-artwork'), bgArtworkUrl, albumName = $('#album-name'), trackName = $('#track-name'), albumArt = $('#album-art'), sArea = $('#s-area'), seekBar = $('#seek-bar'), trackTime = $('#track-time'), insTime = $('#ins-time'), sHover = $('#s-hover'), playPauseButton = $("#play-pause-button"),  i = playPauseButton.find('i'), tProgress = $('#current-time'), tTime = $('#track-length'), seekT, seekLoc, seekBarPos, cM, ctMinutes, ctSeconds, curMinutes, curSeconds, durMinutes, durSeconds, playProgress, bTime, nTime = 0, buffInterval = null, tFlag = false, albums = [' Must Visit Places Around The World In Your Lifetime.'], trackNames = ['Travel -  Must Visit Places Around The World In Your Lifetime.'], albumArtworks = ['_1'], trackUrl = ['https://cdn.bidsxchange.com/internal/audio-flash.mp3'], playPreviousTrackButton = $('#play-previous'), playNextTrackButton = $('#play-next'), currIndex = -1;
+
+    function playPause()
+    {
+        setTimeout(function()
+        {
+            if(audio.paused)
+            {
+                playerTrack.addClass('active');
+                albumArt.addClass('active');
+                checkBuffering();
+                i.attr('class','fas fa-pause');
+                audio.play();
+            }
+            else
+            {
+                playerTrack.removeClass('active');
+                albumArt.removeClass('active');
+                clearInterval(buffInterval);
+                albumArt.removeClass('buffering');
+                i.attr('class','fas fa-play');
+                audio.pause();
+            }
+        },300);
+    }
+
+    	
+	function showHover(event)
+	{
+		seekBarPos = sArea.offset(); 
+		seekT = event.clientX - seekBarPos.left;
+		seekLoc = audio.duration * (seekT / sArea.outerWidth());
+		
+		sHover.width(seekT);
+		
+		cM = seekLoc / 60;
+		
+		ctMinutes = Math.floor(cM);
+		ctSeconds = Math.floor(seekLoc - ctMinutes * 60);
+		
+		if( (ctMinutes < 0) || (ctSeconds < 0) )
+			return;
+		
+        if( (ctMinutes < 0) || (ctSeconds < 0) )
+			return;
+		
+		if(ctMinutes < 10)
+			ctMinutes = '0'+ctMinutes;
+		if(ctSeconds < 10)
+			ctSeconds = '0'+ctSeconds;
+        
+        if( isNaN(ctMinutes) || isNaN(ctSeconds) )
+            insTime.text('--:--');
+        else
+		    insTime.text(ctMinutes+':'+ctSeconds);
+            
+		insTime.css({'left':seekT,'margin-left':'-21px'}).fadeIn(0);
+		
+	}
+
+    function hideHover()
+	{
+        sHover.width(0);
+        insTime.text('00:00').css({'left':'0px','margin-left':'0px'}).fadeOut(0);		
+    }
+    
+    function playFromClickedPos()
+    {
+        audio.currentTime = seekLoc;
+		seekBar.width(seekT);
+		hideHover();
+    }
+
+    function updateCurrTime()
+	{
+        nTime = new Date();
+        nTime = nTime.getTime();
+
+        if( !tFlag )
+        {
+            tFlag = true;
+            trackTime.addClass('active');
+        }
+
+		curMinutes = Math.floor(audio.currentTime / 60);
+		curSeconds = Math.floor(audio.currentTime - curMinutes * 60);
+		
+		durMinutes = Math.floor(audio.duration / 60);
+		durSeconds = Math.floor(audio.duration - durMinutes * 60);
+		
+		playProgress = (audio.currentTime / audio.duration) * 100;
+		
+		if(curMinutes < 10)
+			curMinutes = '0'+curMinutes;
+		if(curSeconds < 10)
+			curSeconds = '0'+curSeconds;
+		
+		if(durMinutes < 10)
+			durMinutes = '0'+durMinutes;
+		if(durSeconds < 10)
+			durSeconds = '0'+durSeconds;
+        
+        if( isNaN(curMinutes) || isNaN(curSeconds) )
+            tProgress.text('00:00');
+        else
+		    tProgress.text(curMinutes+':'+curSeconds);
+        
+        if( isNaN(durMinutes) || isNaN(durSeconds) )
+            tTime.text('00:00');
+        else
+		    tTime.text(durMinutes+':'+durSeconds);
+        
+        if( isNaN(curMinutes) || isNaN(curSeconds) || isNaN(durMinutes) || isNaN(durSeconds) )
+            trackTime.removeClass('active');
+        else
+            trackTime.addClass('active');
+
+        
+		seekBar.width(playProgress+'%');
+		
+		if( playProgress == 100 )
+		{
+			i.attr('class','fa fa-play');
+			seekBar.width(0);
+            tProgress.text('00:00');
+            albumArt.removeClass('buffering').removeClass('active');
+            clearInterval(buffInterval);
+		}
+    }
+    
+    function checkBuffering()
+    {
+        clearInterval(buffInterval);
+        buffInterval = setInterval(function()
+        { 
+            if( (nTime == 0) || (bTime - nTime) > 1000  )
+                albumArt.addClass('buffering');
+            else
+                albumArt.removeClass('buffering');
+
+            bTime = new Date();
+            bTime = bTime.getTime();
+
+        },100);
+    }
+
+    function selectTrack(flag)
+    {
+        if( flag == 0 || flag == 1 )
+            ++currIndex;
+        else
+            --currIndex;
+
+        if( (currIndex > -1) && (currIndex < albumArtworks.length) )
+        {
+            if( flag == 0 )
+                i.attr('class','fa fa-play');
+            else
+            {
+                albumArt.removeClass('buffering');
+                i.attr('class','fa fa-pause');
+            }
+
+            seekBar.width(0);
+            trackTime.removeClass('active');
+            tProgress.text('00:00');
+            tTime.text('00:00');
+
+            currAlbum = albums[currIndex];
+            currTrackName = trackNames[currIndex];
+            currArtwork = albumArtworks[currIndex];
+
+            audio.src = trackUrl[currIndex];
+            
+            nTime = 0;
+            bTime = new Date();
+            bTime = bTime.getTime();
+
+            if(flag != 0)
+            {
+                audio.play();
+                playerTrack.addClass('active');
+                albumArt.addClass('active');
+            
+                clearInterval(buffInterval);
+                checkBuffering();
+            }
+
+            albumName.text(currAlbum);
+            trackName.text(currTrackName);
+            albumArt.find('img.active').removeClass('active');
+            $('#'+currArtwork).addClass('active');
+            
+            bgArtworkUrl = $('#'+currArtwork).attr('src');
+
+            bgArtwork.css({'background-image':'url('+bgArtworkUrl+')'});
+        }
+        else
+        {
+            if( flag == 0 || flag == 1 )
+                --currIndex;
+            else
+                ++currIndex;
+        }
+    }
+
+    function initPlayer()
+	{	
+        audio = new Audio();
+
+		selectTrack(0);
+		
+		audio.loop = false;
+		
+		playPauseButton.on('click',playPause);
+		
+		sArea.mousemove(function(event){ showHover(event); });
+		
+        sArea.mouseout(hideHover);
+        
+        sArea.on('click',playFromClickedPos);
+		
+        $(audio).on('timeupdate',updateCurrTime);
+
+        playPreviousTrackButton.on('click',function(){ selectTrack(-1);} );
+        playNextTrackButton.on('click',function(){ selectTrack(1);});
+	}
+    
+	initPlayer();
+});
+
+</script>-->
+
+<script>
+    let now_playing = document.querySelector(".now-playing");
+    let track_art = document.querySelector(".track-art");
+    let track_name = document.querySelector(".track-name");
+    let track_artist = document.querySelector(".track-artist");
+
+    let playpause_btn = document.querySelector(".playpause-track");
+    let next_btn = document.querySelector(".next-track");
+    let prev_btn = document.querySelector(".prev-track");
+
+    let seek_slider = document.querySelector(".seek_slider");
+    let volume_slider = document.querySelector(".volume_slider");
+    let curr_time = document.querySelector(".current-time");
+    let total_duration = document.querySelector(".total-duration");
+
+    let track_index = 0;
+    let isPlaying = false;
+    let updateTimer;
+
+    // Create new audio element
+    let curr_track = document.createElement('audio');
+
+    // Define the tracks that have to be played
+    let track_list = [
+      {
+        name: "Streamlyn Media",
+        artist: "Broke For Free",
+        image: "https://demo.bidsxchange.com/v2/log.png",
+        path: "https://cdn.bidsxchange.com/internal/audio_flash.mp3"
+      }
+    ];
+
+    function loadTrack(track_index) {
+      clearInterval(updateTimer);
+      resetValues();
+
+      // Load a new track
+      curr_track.src = track_list[track_index].path;
+      curr_track.load();
+
+      // Update details of the track
+      track_art.style.backgroundImage = "url(" + track_list[track_index].image + ")";
+      track_name.textContent = track_list[track_index].name;
+      track_artist.textContent = track_list[track_index].artist;
+      now_playing.textContent = "PLAYING " + (track_index + 1) + " OF " + track_list.length;
+
+      // Set an interval of 1000 milliseconds for updating the seek slider
+      updateTimer = setInterval(seekUpdate, 1000);
+
+      // Move to the next track if the current one finishes playing
+      curr_track.addEventListener("ended", nextTrack);
+
+      // Apply a random background color
+      random_bg_color();
+    }
+
+    function random_bg_color() {
+
+      // Get a random number between 64 to 256 (for getting lighter colors)
+      let red = Math.floor(Math.random() * 256) + 64;
+      let green = Math.floor(Math.random() * 256) + 64;
+      let blue = Math.floor(Math.random() * 256) + 64;
+
+      // Construct a color withe the given values
+      let bgColor = "rgb(" + red + "," + green + "," + blue + ")";
+
+      // Set the background to that color
+      document.body.style.background = bgColor;
+    }
+
+    // Reset Values
+    function resetValues() {
+      curr_time.textContent = "00:00";
+      total_duration.textContent = "00:00";
+      seek_slider.value = 0;
+    }
+
+    function playpauseTrack() {
+	$('.track-art').className = 'track-ani';
+      if (!isPlaying) playTrack();
+      else pauseTrack();
+    }
+
+    function playTrack() {
+      curr_track.play();
+      isPlaying = true;
+
+      // Replace icon with the pause icon
+      playpause_btn.innerHTML = '<i class="fa fa-pause-circle fa-5x"></i>';
+    }
+
+    function pauseTrack() {
+      curr_track.pause();
+      isPlaying = false;
+
+      // Replace icon with the play icon
+      playpause_btn.innerHTML = '<i class="fa fa-play-circle fa-5x"></i>';;
+    }
+
+    function nextTrack() {
+      if (track_index < track_list.length - 1)
+        track_index += 1;
+      else track_index = 0;
+      loadTrack(track_index);
+      playTrack();
+    }
+
+    function prevTrack() {
+      if (track_index > 0)
+        track_index -= 1;
+      else track_index = track_list.length;
+      loadTrack(track_index);
+      playTrack();
+    }
+
+    function seekTo() {
+      seekto = curr_track.duration * (seek_slider.value / 100);
+      curr_track.currentTime = seekto;
+    }
+
+    function setVolume() {
+      curr_track.volume = volume_slider.value / 100;
+    }
+
+    function seekUpdate() {
+      let seekPosition = 0;
+
+      // Check if the current track duration is a legible number
+      if (!isNaN(curr_track.duration)) {
+        seekPosition = curr_track.currentTime * (100 / curr_track.duration);
+        seek_slider.value = seekPosition;
+
+        // Calculate the time left and the total duration
+        let currentMinutes = Math.floor(curr_track.currentTime / 60);
+        let currentSeconds = Math.floor(curr_track.currentTime - currentMinutes * 60);
+        let durationMinutes = Math.floor(curr_track.duration / 60);
+        let durationSeconds = Math.floor(curr_track.duration - durationMinutes * 60);
+
+        // Adding a zero to the single digit time values
+        if (currentSeconds < 10) { currentSeconds = "0" + currentSeconds; }
+        if (durationSeconds < 10) { durationSeconds = "0" + durationSeconds; }
+        if (currentMinutes < 10) { currentMinutes = "0" + currentMinutes; }
+        if (durationMinutes < 10) { durationMinutes = "0" + durationMinutes; }
+
+        curr_time.textContent = currentMinutes + ":" + currentSeconds;
+        total_duration.textContent = durationMinutes + ":" + durationSeconds;
+      }
+    }
+
+    // Load the first track in the tracklist
+    loadTrack(track_index);
+</script>
+
+</body>
+
+</html>

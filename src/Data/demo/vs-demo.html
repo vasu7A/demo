@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Streamlyn  Demo</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+   
+    <!-- THEME CSS
+	================================================== -->
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css">
+    <!-- Slick Carousel -->
+    <link rel="stylesheet" href="plugins/slick-carousel/slick.css">
+    <link rel="stylesheet" href="plugins/slick-carousel/slick-theme.css">
+    <!-- manin stylesheet -->
+    <link rel="stylesheet" href="css/b-w.css">
+	
+	
+  <link href="https://cdn.ampproject.org/amp-story-player-v0.css" rel="stylesheet" type="text/css">
+<link href="https://webstories.dev/assets/widget/v1/portraitshape.css" rel="stylesheet" type="text/css">
+<script src="https://webstories.dev/assets/widget/v1/player-min.js"></script>
+
+ <link href="stories/styles/main.css" rel="stylesheet" type="text/css">
+ <link href="stories/styles/cards.css" rel="stylesheet" type="text/css">
+  <link href="stories/styles/carousel.css" rel="stylesheet" type="text/css">
+	<style>
+	body{
+		overflow-y: scroll; 
+		-ms-overflow-style: none;	
+		}
+	body::-webkit-scrollbar {
+		display: none;
+	}
+	
+	@media (min-width: 1200px){
+	.container {
+		max-width: 1410px;
+	}
+	}
+	@media (min-width: 992px){
+	.container {
+    max-width: 1390px;
+	}	
+	}
+	
+	
+.story {
+	background:white;
+	padding:10px 5px;
+}
+.story .story-item {
+	height: 498px;
+    border-radius: 15px;
+    background: #3e7fff;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    color: white;
+	position:relative;
+	font-size:13px;	
+}  
+.story .story-item:before {
+   content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: black;
+    opacity: .2;
+    border-radius: 15px;
+  } 
+  
+.story .story-item span {
+	position:absolute;bottom:0;
+	padding:10px 5px; 
+  font-family: sans-serif;
+}
+
+.story .owl-stage {
+    right: 15px;
+}
+
+.rounded {
+  background-image:url(https://demo.bidsxchange.com/log.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  width:32px;
+  height:32px;
+  margin:5px;
+  position:absolute;
+  border-radius:50%;
+ <!--border:2px solid #3877e1;-->
+}
+
+
+
+	<!--.carousel-wrapper {
+      width: 1200px;
+      margin: auto;
+      position: relative;
+      text-align: center;
+      font-family: sans-serif;
+    }-->
+	
+    .owl-carousel .owl-nav {
+      overflow: hidden;
+      height: 0px;
+    }
+
+   .owl-theme .owl-dots .owl-dot.active span,
+    .owl-theme .owl-dots .owl-dot:hover span {
+      background: #5110e9;
+    }
+
+
+    .owl-carousel .item {
+      text-align: center;
+    }
+
+    .owl-carousel .nav-button {
+      height: 50px;
+      width: 25px;
+      cursor: pointer;
+      position: absolute;
+      top: 110px !important;
+    }
+
+    .owl-carousel .owl-prev.disabled,
+    .owl-carousel .owl-next.disabled {
+      pointer-events: none;
+      opacity: 0.25;
+    }
+
+    .owl-carousel .owl-prev {
+      left: -35px;
+    }
+
+    .owl-carousel .owl-next {
+      right: -35px;
+    }
+
+    .owl-theme .owl-nav [class*=owl-] {
+      color: #ffffff;
+      font-size: 39px;
+      background: #8f8f8f;
+      border-radius: 29px;
+	  height:40px;
+	  width:40px;
+	  margin-top: 100px;
+	  margin-left: -5px;
+		margin-right: -5px;
+    }
+
+    .owl-carousel .prev-carousel:hover {
+      background-position: 0px -53px;
+    }
+
+    .owl-carousel .next-carousel:hover {
+      background-position: -24px -53px;
+    }
+	
+	
+	.playpause {
+    background-image:url(images/play.png);
+    background-repeat:no-repeat;
+    width:20%;
+    height:20%;
+    position:absolute;
+    left:0%;
+    right:0%;
+    top:0%;
+    bottom:0%;
+    margin:auto;
+    background-size:contain;
+    background-position: center;
+}
+	</style>
+	
+	
+
+</head>
+<body>
+
+<div class="trending-bar-dark hidden-xs">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+               
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main-navbar clearfix bg-dark ">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+               <nav class="navbar navbar-expand-lg site-main-nav navigation">
+                      <a class="navbar-brand d-lg-none" >
+                        <img src="" alt="">
+                     </a>
+  
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="fa fa-bars"></span>
+                  </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                           
+                            <li class="nav-item dropdown">
+                                <a class="nav-link"  role="button" >
+                                 Home
+                                </a>
+                            </li>
+                           
+                             <li class="nav-item dropdown">
+                                <a class="nav-link "  role="button">
+                                  Destination
+                                </a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link"  role="button">
+                                  Travel Tips
+                                </a>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link"  role="button" >
+                                  Travel Type
+                                </a>
+                            </li>
+                             <li class="nav-item dropdown">
+                                <a class="nav-link "  role="button">
+                                  Lifestyle
+                                </a>
+                                
+                            </li>
+
+                             <li class="nav-item">
+                                <a class="nav-link" >Getaways</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+    <form class="site-search" method="get">
+        <input type="text" id="searchInput" name="site_search" placeholder="Enter Keyword Here..." autofocus="">
+        <div class="search-close">
+            <span class="close-search">
+                <i class="fa fa-times"></i>
+            </span>
+        </div>
+    </form>
+</div>
+
+<section class="single-block-wrapper section-padding">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<div class="single-post">
+				
+				
+    <div class="post-header mb-5">
+        <a class="post-category" style="color:white">Travel</a>
+        <h2 class="post-title">
+           Must Visit Places Around The World In Your Lifetime.
+        </h2>
+        
+    </div>
+    <div class="post-body">	
+        <div class="entry-content">
+					
+        <div class="post-featured-image">
+            <img src="images/news/hero.jpg" class="img-fluid" alt="featured-image">
+        </div>
+		
+            <p>
+               There are so many places to visit in this world and we are so excited for you that you are about to visit different places and explore the world. No matter how much ever you have traveled in your own country there is something equally exciting and terrifying about going for your first overseas trip. Going to a place that is new, different, and foreign is endlessly interesting but can be a bit confusing and scary. But it is not mandatory! Follow these important international travel tips to ensure smooth sailing.</p>
+		<h2>Stories</h2>
+		
+	<!--<div class="story owl-carousel owl-theme">
+			
+	<div class="story-item item" style="background-image:url(https://demo.bidsxchange.com/v2/demo/stories/stories-1.mp4);"> 
+	<div class="rounded"></div>
+	<video class="video" style="width:101%;border-radius:4%;">
+	<source src="https://demo.bidsxchange.com/v2/demo/stories/stories-1.mp4">
+	</video>
+	<div class="playpause"></div>
+    <span style="font-size: 25px;margin-left: -127px;margin-bottom: 20px;">Video Stories 1<span>
+	</div>
+	
+	
+  <div class="story-item item" style="background-image:url(https://cdn.pixabay.com/photo/2015/06/19/17/58/sample-815141_960_720.jpg);" >  
+    <div class="rounded"></div>
+    <span>Your Content<span></div>
+	
+	
+  <div class="story-item item-video" style="background-image:url(https://petapixel.com/assets/uploads/2012/02/sample1_mini.jpg);"> 
+     <div class="rounded"></div>
+    <span>Your Content<span> 
+	</div>
+	
+	
+  <div class="story-item item" style="background-image:url(https://demo.bidsxchange.com/v2/demo/stories/stories-2.mp4);"> 
+	<div class="rounded"></div>
+	<video class="video" style="width:101%;border-radius:4%;">
+	<source src="https://demo.bidsxchange.com/v2/demo/stories/stories-2.mp4">
+	</video>
+	<div class="playpause"></div>
+    <span style="font-size: 25px;margin-left: -127px;margin-bottom: 20px;">Video Stories 2<span>
+	</div>
+	
+  <div class="story-item item-video" style="background-image:url(https://source.unsplash.com/random);"> 
+     <div class="rounded"></div>
+	<span>Your Content<span> </div>
+	
+	
+	
+	
+	<div class="story-item item" style="background-image:url(https://demo.bidsxchange.com/v2/demo/stories/stories-3.mp4);"> 
+	<div class="rounded"></div>
+	<video class="video" style="width:101%;border-radius:4%;">
+	<source src="https://demo.bidsxchange.com/v2/demo/stories/stories-3.mp4">
+	</video>
+	<div class="playpause"></div>
+    <span style="font-size: 25px;margin-left: -127px;margin-bottom: 20px;">Video Stories 2<span>
+	</div>
+	
+	
+  <div class="story-item item" style="background-image:url(https://imaging.nikon.com/lineup/lens/f-mount/singlefocal/normal/af-s_50mmf_18g/img/sample/sample1_l.jpg);"> 
+     <div class="rounded"></div>
+    <span>Your Content<span> </div>
+	
+	
+  
+</div>
+
+-->
+
+			
+			<div id="widget-vs" class="wdg-wpr"><script type="application/json">{"endpoint":"https://webstories.dev/widget/t/9617751/all/en/s/c1/g","styles":{"klasses":{"crc":"wdg-pot wdg-lg txt-white"}},"type":"c-pot"}</script></div>
+          
+<h2>List Of Places To First Visit When You Travel.</h2>
+		  
+		  
+<!--<div class="carousel-wrapper">
+
+    <h2>Owl Carousel 2 Custom Navigation Arrows Example</h2>
+
+    <div class="owl-carousel owl-theme">
+      <div class="item">
+        <img src="https://via.placeholder.com/600/92c952" />
+      </div>
+      <div class="item">
+        <img src="https://via.placeholder.com/600/771796" />
+      </div>
+      <div class="item">
+        <img src="https://via.placeholder.com/600/24f355" />
+      </div>
+      <div class="item">
+        <img src="https://via.placeholder.com/600/d32776" />
+      </div>
+      <div class="item">
+        <img src="https://via.placeholder.com/600/f66b97" />
+      </div>
+      <div class="item">
+        <img src="https://via.placeholder.com/600/56a8c2" />
+      </div>
+      <div class="item">
+        <img src="https://via.placeholder.com/600/b0f7cc" />
+      </div>
+      <div class="item">
+        <img src="https://via.placeholder.com/600/54176f" />
+      </div>
+      <div class="item">
+        <img src="https://via.placeholder.com/600/51aa97" />
+      </div>
+      <div class="item">
+        <img src="https://via.placeholder.com/600/810b14" />
+      </div>
+    </div>
+  </div>-->
+            <p>
+                Perhaps you have been dreaming for a long time about seeing elephants in Thailand or visiting the pyramids in Egypt. Maybe you do not know where to go exactly, but you know you need to go. If you are confused by all the beautiful places you can visit as now you have a passport then, it may be difficult to choose which place to visit while going on the first international trip.
+            </p>
+			  <amp-video src="https://cdn.bidsxchange.com/internal/stories-4.mp4" ... dock></amp-video>	
+			
+			<p> Going to a place that is new, different, and foreign is endlessly interesting but can be a bit confusing and scary. But it is not mandatory! Follow these important international travel tips to ensure smooth sailing.</p>
+			<div class="post-featured-image">
+           <img style='width:auto;' src="images/news/img-1.jpg" alt="post-ads" class="img-fluid mr-4">
+        </div>
+			
+            <div class="media mb-4 single-media">
+               
+               <div class="media-body">
+                    <p>Carry enough money - The common way to get cash is an ATM, but many banks charge high fees for using an ATM that is out of network. So, it is always better to withdraw a large amount of money at the airport ATM so that you need to pay the fee just once, but it is advised not to carry a huge amount of money. Also, you risk having too much money left over once your trip ends.
+                    </p>
+                </div>
+            </div>
+            <p>
+               Also, it is the endpoint of the popular adventure activity, i.e. the canyoneering adventure. It begins in Kanlaob River in the town of Algeria and you make your way to Kawasan swimming along the streams, abseiling through the natural rock walls, and jumping from the mini waterfalls. Adjacent is the town of Moalboal, popular for its sardine run experience, where you swim with lots of sardines just offshore.
+            </p>
+			<div class="post-featured-image">
+				<img src="images/philippines-guide-1.jpg" class="img-fluid" alt="featured-image">
+			</div>
+            <p>
+               The Ifugao people were highly talented in carving both mountainsides and wood. The Banaue Rice Terraces is considered a UNESCO World Heritage Site, and it provides breathtaking views of emerald colors during April-May and October-November, which are considered as rice-growing seasons.
+
+
+            </p>
+        </div>
+		
+        
+        <div class="share-block  d-flex justify-content-between align-items-center border-top border-bottom mt-5">
+            <div class="post-tags">
+                <span>Travel</span>
+                <a >Destinations</a>
+                <a >Guide</a>
+                <a >Tour</a>
+            </div>
+
+          
+        </div>
+    </div>
+</div>
+				
+<nav class="post-navigation clearfix">
+    <div class="previous-post">
+        <a>
+            <h6 class="text-uppercase">Next</h6>
+            <h3>
+                 Travel Guide to Boracay, Philippines
+            </h3>
+        </a>
+    </div>
+    <div class="next-post">
+        <a>
+            <h6 class="text-uppercase">Previous</h6>
+
+            <h3>
+                Which is the right time to visit Vietnam
+            </h3>
+        </a>
+    </div>
+</nav>
+	
+			</div>
+		</div>
+	</div>
+</section>
+
+<footer class="footer footer-main ">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-sm-12 col-lg-6 text-center">
+      
+                <div class="copyright-text text-center">
+                    <p class="mb-0">© All Copyright Reserved to - <a>Streamlyn</a></p>
+                </div>
+            </div>
+
+            <div class="scroll-to-top">
+                <button class="btn btn-primary" title="Back to Top">
+                    <i class="fa fa-angle-up"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<!-- THEME JAVASCRIPT FILES
+================================================== -->
+<!-- initialize jQuery Library -->
+<script src="plugins/jquery/jquery.js"></script>
+<!-- Bootstrap jQuery -->
+<script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+<!-- Slick Slider -->
+<script src="plugins/slick-carousel/slick.min.js"></script>
+<!-- Google Map -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<!-- main js -->
+<script src="js/custom.js"></script>
+
+
+
+
+
+<script>
+
+ $(document).ready(function(){
+  $('.story').owlCarousel({
+    center: false,
+    items:3,
+	video:true,
+	nav:true,
+	navText: ["<div class='nav-button owl-prev'>‹</div>", "<div class='nav-button owl-next'>›</div>"],
+    loop:true,
+    margin:10,
+	stagePadding: 15,
+   
+});
+});
+
+$('.video').parent().on('click',function () {
+    if($(this).children(".video").get(0).paused){
+        $(this).children(".video").get(0).play();
+        $(this).children(".playpause").fadeOut();
+    }else{
+       $(this).children(".video").get(0).pause();
+        $(this).children(".playpause").fadeIn();
+    }
+});
+
+/*$('.owl-carousel').owlCarousel({
+      margin: 15,
+      nav: true,
+      navText: ["<div class='nav-button owl-prev'>‹</div>", "<div class='nav-button owl-next'>›</div>"],
+      responsive: {
+        0: {
+          items: 1
+        },
+        600: {
+          items: 2
+        },
+        1000: {
+          items: 3
+        }
+      }
+    });*/
+</script>
+
+
+</body>
+
+</html>
